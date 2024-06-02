@@ -15,8 +15,8 @@ public class Seat  extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "row")
-    private String row;
+    @Column(name = "row_name")
+    private String rowName;
 
     @Column(name = "number")
     private int number;

@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/cinema")
 @RequiredArgsConstructor
+@Validated
 @Slf4j
 public class CinemaController {
     private final CinemaService cinemaService;
@@ -43,7 +45,7 @@ public class CinemaController {
     }
     @PutMapping(path = "/{cinemaId}")
     public ApiResponse<?> updateCinemaById(@PathVariable(name = "cinemaId") long cinemaId,
-                                           @RequestBody CinemaRequestDTO cinemaDTO){
+                                           @Valid @RequestBody CinemaRequestDTO cinemaDTO){
         log.info("Request update cinema id= {}",cinemaId);
         try {
             cinemaService.updateCinema(cinemaId,cinemaDTO);
