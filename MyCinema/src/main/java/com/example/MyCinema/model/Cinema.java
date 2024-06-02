@@ -1,5 +1,6 @@
 package com.example.MyCinema.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,7 +23,7 @@ public class Cinema extends  BaseEntity{
 
     @Column(name = "address")
     private String address;
-
-    @OneToMany(mappedBy = "cinema")
-    private Set<Room> rooms;
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "cinema")
+//    private Set<Room> rooms;
 }

@@ -25,5 +25,12 @@ public class GlobalExceptionHandler {
         ApiErrorResponse apiErrorResponse = new ApiErrorResponse(HttpStatus.BAD_REQUEST, Objects.requireNonNull(ex.getFieldError()).getDefaultMessage(), path);
         return apiErrorResponse;
     }
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiErrorResponse handleIllegalArgumentException(IllegalArgumentException ex,WebRequest request){
+        String path = request.getDescription(false);
+        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),path);
+        return apiErrorResponse;
+    }
 
 }
