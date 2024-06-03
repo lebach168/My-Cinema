@@ -9,7 +9,7 @@ import java.util.List;
 
 @Builder
 @Getter
-public class SeatResponseDTO {
+public class SeatResponse {
     Room room;
     List<Seat> seats;
 }

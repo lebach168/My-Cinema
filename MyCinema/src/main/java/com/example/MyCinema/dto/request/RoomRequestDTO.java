@@ -8,9 +8,9 @@ import java.io.Serializable;
 
 @Getter
 public class RoomRequestDTO implements Serializable {
-    @NotNull
+    @NotNull(message = "cinema id is required")
     Long cinemaId;
 
-    @NotNull
+    @NotBlank(message = "row name must be not blank")
     String name;
 }
