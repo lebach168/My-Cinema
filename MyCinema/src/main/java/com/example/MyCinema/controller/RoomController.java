@@ -2,26 +2,27 @@ package com.example.MyCinema.controller;
 
 import com.example.MyCinema.dto.ApiResponse;
 import com.example.MyCinema.dto.request.RoomRequestDTO;
-import com.example.MyCinema.dto.response.RoomResponseDTO;
+import com.example.MyCinema.dto.response.RoomResponse;
 import com.example.MyCinema.model.Room;
 import com.example.MyCinema.service.RoomService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/room")
 @RequiredArgsConstructor
-
+@Validated
 @Slf4j
 public class RoomController {
     private final RoomService roomService;
 
     @GetMapping(path = "/list/{cinemaId}")
     public ApiResponse<?> getAllRoomsByCinema(@PathVariable("cinemaId") Long cinemaId){
-        RoomResponseDTO responseData = roomService.getAllRoomsByCinema(cinemaId);
+        RoomResponse responseData = roomService.getAllRoomsByCinema(cinemaId);
         log.info("Request get all rooms of cinema {}",cinemaId);
         return new ApiResponse<>(HttpStatus.OK,"rooms",responseData);
     }

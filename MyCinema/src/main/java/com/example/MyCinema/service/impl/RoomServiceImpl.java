@@ -1,6 +1,6 @@
 package com.example.MyCinema.service.impl;
 
-import com.example.MyCinema.dto.response.RoomResponseDTO;
+import com.example.MyCinema.dto.response.RoomResponse;
 import com.example.MyCinema.exception.ResourceNotFoundException;
 import com.example.MyCinema.model.Cinema;
 import com.example.MyCinema.model.Room;
@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -49,13 +47,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomResponseDTO getAllRoomsByCinema(Long cinemaId) {
+    public RoomResponse getAllRoomsByCinema(Long cinemaId) {
         List<Room> roomList= roomRepository.findAllByCinemaId(cinemaId);
         List<Room> response = roomList.stream().map(room-> Room.builder()
                 .id(room.getId())
                 .name(room.getName())
                 .build()).toList();
-        return RoomResponseDTO.builder()
+        return RoomResponse.builder()
                 .cinema(cinemaService.getCinemaById(cinemaId))
                 .rooms(response)
                 .build();

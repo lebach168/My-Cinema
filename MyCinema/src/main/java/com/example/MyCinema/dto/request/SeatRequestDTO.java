@@ -10,12 +10,13 @@ import java.io.Serializable;
 
 @Getter
 public class SeatRequestDTO implements Serializable {
-    @NotNull
+    @NotNull (message = "room id is required")
     Long roomId;
-    @NotBlank
+    @NotBlank (message = "row name must be not blank")
     String rowName;
-    @NotNull
+    @NotNull (message = "quantity must be not null")
     int quantity;//generate n seat number  1 -> quantity
+    @NotNull(message = "type must be not null")
     @EnumValue(name = "type", enumClass = SeatType.class, className = "Seat Type")
     String type ;//default value = standard
 }

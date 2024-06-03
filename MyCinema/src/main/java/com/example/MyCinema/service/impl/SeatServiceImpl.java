@@ -1,13 +1,11 @@
 package com.example.MyCinema.service.impl;
 
 import com.example.MyCinema.dto.request.SeatRequestDTO;
-import com.example.MyCinema.dto.response.RoomResponseDTO;
-import com.example.MyCinema.dto.response.SeatResponseDTO;
+import com.example.MyCinema.dto.response.SeatResponse;
 import com.example.MyCinema.exception.ResourceNotFoundException;
 import com.example.MyCinema.model.Room;
 import com.example.MyCinema.model.Seat;
 import com.example.MyCinema.model.SeatType;
-import com.example.MyCinema.repository.RoomRepository;
 import com.example.MyCinema.repository.SeatRepository;
 import com.example.MyCinema.service.RoomService;
 import com.example.MyCinema.service.SeatService;
@@ -39,7 +37,7 @@ public class SeatServiceImpl implements SeatService {
     }
     @Override
     public void updateSeatTypeOfRow(SeatRequestDTO requestDTO) {
-        List<Seat> seats = seatRepository.findAllByRowAndRoomId(requestDTO.getRoomId(), requestDTO.getRowName());
+        List<Seat> seats = getRowSeats(requestDTO.getRoomId(), requestDTO.getRowName());
         for(Seat seat:seats){
             seat.setType(SeatType.valueOf(requestDTO.getType().toUpperCase()));
             seatRepository.save(seat);
@@ -55,7 +53,7 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public void deleteSeatsByRow(long roomId, String row) {
-        List<Seat> seats = seatRepository.findAllByRowAndRoomId(roomId, row);
+        List<Seat> seats = getRowSeats(roomId, row);
         for(Seat seat:seats){
             seatRepository.deleteById(seat.getId());
         }
@@ -69,22 +67,29 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public void updateRowName(Long roomId, String oldName, String newName) {
-        List<Seat> seats = seatRepository.findAllByRowAndRoomId(roomId, oldName);
+        List<Seat> seats = getRowSeats(roomId, oldName);
         for(Seat seat:seats){
             seat.setRowName(newName);
             seatRepository.save(seat);
         }
         log.info("Row={} in room={} has been changed name to {}",oldName,roomId,newName);
     }
+    public List<Seat> getRowSeats(long roomId, String rowName){
+        List<Seat> seats = seatRepository.findAllByRowAndRoomId(roomId, rowName);
+        if(seats.isEmpty()){
+            throw new ResourceNotFoundException("Row seats not found, check your room id and row name");
+        }
+        return seats;
+    }
     @Override
-    public SeatResponseDTO getAllSeatByRoom(long roomId) {
+    public SeatResponse getAllSeatByRoom(long roomId) {
         List<Seat> seatList= seatRepository.findAllByRoomId(roomId);
         Room room = roomService.getRoomById(roomId);
         List<Seat> response = seatList.stream().map(seat-> Seat.builder()
                 .id(seat.getId())
                 .rowName(seat.getRowName())
                 .build()).toList();
-        return SeatResponseDTO.builder()
+        return SeatResponse.builder()
                 .room(room)
                 .seats(response)
                 .build();

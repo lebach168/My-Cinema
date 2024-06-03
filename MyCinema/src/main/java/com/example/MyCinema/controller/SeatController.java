@@ -2,19 +2,21 @@ package com.example.MyCinema.controller;
 
 import com.example.MyCinema.dto.ApiResponse;
 import com.example.MyCinema.dto.request.SeatRequestDTO;
-import com.example.MyCinema.dto.response.SeatResponseDTO;
+import com.example.MyCinema.dto.response.SeatResponse;
 import com.example.MyCinema.model.Seat;
 import com.example.MyCinema.service.SeatService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "api/v1/seat")
 @RequiredArgsConstructor
-
+@Validated
 @Slf4j
 public class SeatController {
     private final SeatService seatService;
@@ -22,7 +24,7 @@ public class SeatController {
     @GetMapping(path = "/list/{roomId}")
     public ApiResponse<?> getAllSeatsByRoomId(@PathVariable("roomId") long roomId){
         log.info("request get all seats by room: {}",roomId);
-        SeatResponseDTO responseData = seatService.getAllSeatByRoom(roomId);
+        SeatResponse responseData = seatService.getAllSeatByRoom(roomId);
         return new ApiResponse<>(HttpStatus.OK,"list of seats", responseData);
     }
 
@@ -52,10 +54,10 @@ public class SeatController {
             throw new RuntimeException("Update seats failed");
         }
     }
-    @PutMapping(path = "/update_row_name/{roomId}/{oldName}/{newName}")
-    public ApiResponse<?> updateRowName( @PathVariable("roomId") Long roomId,
-                                         @PathVariable("oldName") String oldName,
-                                         @PathVariable("newName") String newName){
+    @PatchMapping(path = "/update_row_name")
+    public ApiResponse<?> updateRowName( @RequestParam(value = "roomId",required = true) Long roomId,
+                                         @RequestParam(value = "oldName",required = true) String oldName,
+                                         @NotBlank @RequestParam(value = "newName",required = true) String newName){
         log.info("request update row name of seats for room : {}", roomId);
         try{
             seatService.updateRowName(roomId,oldName,newName);

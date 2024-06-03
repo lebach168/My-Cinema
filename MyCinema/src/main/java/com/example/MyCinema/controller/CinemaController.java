@@ -68,6 +68,4 @@ public class CinemaController {
         }
     }
 
-//    @GetMapping(path = "/now-showing")
-//    @GetMapping(path = "upcoming")
 }
