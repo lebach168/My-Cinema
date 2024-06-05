@@ -5,6 +5,7 @@ import com.example.MyCinema.dto.request.CinemaRequestDTO;
 import com.example.MyCinema.dto.response.PaginationResponse;
 import com.example.MyCinema.model.Cinema;
 import com.example.MyCinema.service.CinemaService;
+import com.example.MyCinema.service.ShowtimeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
 @RequestMapping(path = "api/v1/cinema")
 @RequiredArgsConstructor
@@ -20,10 +23,9 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class CinemaController {
     private final CinemaService cinemaService;
-
-    @PostMapping(path = "/add")
+    @PostMapping(path = "/create")
     public ApiResponse<Long> addCinema(@Valid @RequestBody CinemaRequestDTO cinema){
-        log.info("Request add cinema: name= {} address= {}",cinema.getName(),cinema.getAddress());
+        log.info("Request create cinema: name= {} address= {}",cinema.getName(),cinema.getAddress());
         Long cinemaId = cinemaService.addCinema(cinema);
         return new ApiResponse<>(HttpStatus.ACCEPTED,"cinema successfully added",cinemaId);
     }
@@ -43,6 +45,7 @@ public class CinemaController {
         Cinema response = cinemaService.getCinemaById(cinemaId);
         return new ApiResponse<>(HttpStatus.OK,"cinema id: "+ cinemaId, response);
     }
+
     @PutMapping(path = "/{cinemaId}")
     public ApiResponse<?> updateCinemaById(@PathVariable(name = "cinemaId") long cinemaId,
                                            @Valid @RequestBody CinemaRequestDTO cinemaDTO){

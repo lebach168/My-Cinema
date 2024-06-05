@@ -32,5 +32,11 @@ public class GlobalExceptionHandler {
         ApiErrorResponse apiErrorResponse = new ApiErrorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),path);
         return apiErrorResponse;
     }
-
+    @ExceptionHandler(value = DataAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ApiErrorResponse handleConflictException(DataAlreadyExistsException ex,WebRequest request){
+        String path = request.getDescription(false);
+        ApiErrorResponse apiErrorResponse = new ApiErrorResponse(HttpStatus.CONFLICT,ex.getMessage(), path);
+        return apiErrorResponse;
+    }
 }

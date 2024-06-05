@@ -20,7 +20,7 @@ public class MovieRequestDTO implements Serializable {
 
     @NotNull(message = "release date must be not null")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate releaseDate;
 
 

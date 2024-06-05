@@ -33,7 +33,7 @@ public class MovieController {
         return new ApiResponse<>(HttpStatus.ACCEPTED,"movie successfully added ",id);
     }
 
-    @PutMapping(path = "/update/{movieId}")
+    @PutMapping(path = "/{movieId}")
     public ApiResponse<?> updateMovie(@PathVariable Long movieId,
                                       @Valid @RequestBody MovieRequestDTO movieDTO){
         log.info("request update movie id:{} info",movieId);
@@ -41,7 +41,7 @@ public class MovieController {
         return new ApiResponse<>(HttpStatus.ACCEPTED,"movie successfully updated ");
     }
 
-    @DeleteMapping(path = "/delete/{movieId}")
+    @DeleteMapping(path = "/{movieId}")
     public ApiResponse<?> deleteMovie(@PathVariable Long movieId){
         log.info("request delete movie id:{}",movieId);
         movieService.deleteMovie(movieId);

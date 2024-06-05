@@ -43,7 +43,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDetailResponse getMovieInfo(long movieId) {
-        Movie movie = getMovie(movieId);
+        Movie movie = getMovieById(movieId);
 
         return MovieDetailResponse.builder()
                 .title(movie.getTitle())
@@ -65,7 +65,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void updateMovie(long movieId, MovieRequestDTO movieDTO) {
-        Movie movie = getMovie(movieId);
+        Movie movie = getMovieById(movieId);
         movie.setTitle(movieDTO.getTitle());
         movie.setReleaseDate(movieDTO.getReleaseDate());
         movie.setGenres(movieDTO.getGenres());
@@ -113,7 +113,7 @@ public class MovieServiceImpl implements MovieService {
                 .build();
     }
 
-    public Movie getMovie(long movieId){
+    public Movie getMovieById(long movieId){
         return movieRepository.findById(movieId).orElseThrow(()-> new ResourceNotFoundException("movie + id:"+ movieId+" not found"));
     }
 }

@@ -36,7 +36,7 @@ public class UserController {
     }
 
     //Update info
-    @PutMapping(path = "/update/{userId}")
+    @PutMapping(path = "/{userId}")
     public ApiResponse<?> createNewUser(@PathVariable("userId") Long userId,
             @Valid @RequestBody UserRequestDTO userDTO){
         log.info("request update user info id={}",userId);
@@ -44,7 +44,7 @@ public class UserController {
         return new ApiResponse<>(HttpStatus.ACCEPTED,"user info successfully updated");
     }
     //Change password
-    @PatchMapping(path = "change-password/{userId}")
+    @PatchMapping(path = "/change-password/{userId}")
     public ApiResponse<?> changeUserPassword(@PathVariable("userId") Long userId,
             @NotBlank @RequestBody String newPassword){
         log.info("request change user password id={}",userId);
@@ -52,7 +52,7 @@ public class UserController {
         return new ApiResponse<>(HttpStatus.ACCEPTED,"user password has been changed");
     }
     //Delete
-    @DeleteMapping(path = "/delete/{userId}")
+    @DeleteMapping(path = "/{userId}")
     public ApiResponse<?> deleteMovie(@PathVariable Long userId){
         log.info("request delete user id:{}",userId);
         userService.deleteUser(userId);

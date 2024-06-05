@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "api/v1/seat")
 @RequiredArgsConstructor
@@ -38,6 +40,7 @@ public class SeatController {
     @PostMapping(path = "/create")
     public ApiResponse<?> createRowOfSeats(@Valid @RequestBody SeatRequestDTO rowSeat){
         log.info("request create row of seats for room : {}", rowSeat.getRoomId());
+
         seatService.addRowOfSeats(rowSeat);
         return new ApiResponse<>(HttpStatus.OK,"Row of seats added successfully");
     }

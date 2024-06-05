@@ -1,5 +1,6 @@
 package com.example.MyCinema.repository;
 
+import com.example.MyCinema.model.Cinema;
 import com.example.MyCinema.model.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
     @Query(value = "Select * from Room r where r.cinema_id =:cinemaId" ,nativeQuery = true)
     List<Room> findAllByCinemaId(@Param("cinemaId")Long cinemaId);
 
+
+    List<Room> findAllByCinemaAndName(Cinema cinema, String name);
 
 }
