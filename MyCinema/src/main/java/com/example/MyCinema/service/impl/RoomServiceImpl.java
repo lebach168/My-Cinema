@@ -1,6 +1,7 @@
 package com.example.MyCinema.service.impl;
 
 import com.example.MyCinema.dto.response.RoomResponse;
+import com.example.MyCinema.exception.DataAlreadyExistsException;
 import com.example.MyCinema.exception.ResourceNotFoundException;
 import com.example.MyCinema.model.Cinema;
 import com.example.MyCinema.model.Room;
@@ -23,7 +24,10 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Long createRoom(Long cinemaId, String name) {
         Cinema cinema = cinemaService.getCinemaById(cinemaId);
-
+        List<Room> existRoom = roomRepository.findAllByCinemaAndName(cinema,name);
+        if(!existRoom.isEmpty()){
+            throw new DataAlreadyExistsException("room name has already existed");
+        }
         Room newRoom = Room.builder()
                 .cinema(cinema)
                 .name(name)

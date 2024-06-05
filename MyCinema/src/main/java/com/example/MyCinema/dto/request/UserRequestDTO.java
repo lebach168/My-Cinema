@@ -20,8 +20,8 @@ public class UserRequestDTO implements Serializable {
     private String name;
 
     @NotNull(message = "date of birth must be not null")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
 
     private int point =0;

@@ -3,6 +3,7 @@ package com.example.MyCinema.service;
 import com.example.MyCinema.dto.request.MovieRequestDTO;
 import com.example.MyCinema.dto.response.MovieDetailResponse;
 import com.example.MyCinema.dto.response.PaginationResponse;
+import com.example.MyCinema.model.Movie;
 
 public interface MovieService {
     long addMovie(MovieRequestDTO movieDTO);
@@ -12,4 +13,5 @@ public interface MovieService {
     PaginationResponse<?> getNowShowingMovie(int pageNo, int pageSize, String sortBy);
 
     PaginationResponse<?> getUpcomingMovie(int pageNo, int pageSize, String sortBy);
+    Movie getMovieById(long movieId);
 }

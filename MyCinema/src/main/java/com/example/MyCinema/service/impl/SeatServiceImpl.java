@@ -2,6 +2,7 @@ package com.example.MyCinema.service.impl;
 
 import com.example.MyCinema.dto.request.SeatRequestDTO;
 import com.example.MyCinema.dto.response.SeatResponse;
+import com.example.MyCinema.exception.DataAlreadyExistsException;
 import com.example.MyCinema.exception.ResourceNotFoundException;
 import com.example.MyCinema.model.Room;
 import com.example.MyCinema.model.Seat;
@@ -24,6 +25,11 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public void addRowOfSeats(SeatRequestDTO requestDTO) {
         Room room = roomService.getRoomById(requestDTO.getRoomId());
+        //check if exists row name
+        List<Seat> seats =getRowSeats(room.getId(),requestDTO.getRowName());
+        if(!seats.isEmpty()){
+            throw new DataAlreadyExistsException("Row name has already existed");
+        }
         for(int i =1;i<=requestDTO.getQuantity();i++){
             Seat seat = Seat.builder()
                     .room(room)
@@ -68,6 +74,10 @@ public class SeatServiceImpl implements SeatService {
     @Override
     public void updateRowName(Long roomId, String oldName, String newName) {
         List<Seat> seats = getRowSeats(roomId, oldName);
+        List<Seat> newSeatname =getRowSeats(roomId,newName);
+        if(!newSeatname.isEmpty()){
+            throw new DataAlreadyExistsException("Row name has already existed");
+        }
         for(Seat seat:seats){
             seat.setRowName(newName);
             seatRepository.save(seat);

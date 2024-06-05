@@ -20,7 +20,12 @@ public class Showtime extends BaseEntity{
 
     @Column(name = "start_time")
     private LocalDateTime startTime;
+    @Column(name = "end_time")
+    private LocalDateTime endTime;
 
+    @OneToOne
+    @JoinColumn(name = "cinema_id")
+    private Cinema cinema;
     @OneToOne
     @JoinColumn(name ="room_id")
     private Room room;
