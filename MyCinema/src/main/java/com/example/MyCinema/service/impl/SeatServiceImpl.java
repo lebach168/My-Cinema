@@ -68,7 +68,7 @@ public class SeatServiceImpl implements SeatService {
 
     @Override
     public Seat getSeatById(long seatId) {
-        return seatRepository.findById(seatId).orElseThrow(()->new ResourceNotFoundException("seat "+ seatId +" not found"));
+        return seatRepository.findById(seatId).orElseThrow(()->new ResourceNotFoundException("seat not found"));
     }
 
     @Override

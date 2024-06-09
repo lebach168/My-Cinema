@@ -120,7 +120,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
         return showtimes.isEmpty();
     }
     public Showtime getShowtimeById(long showtimeId){
-        return showtimeRepository.findById(showtimeId).orElseThrow(()->new ResourceNotFoundException("showtime id=" + showtimeId+" not found"));
+        return showtimeRepository.findById(showtimeId).orElseThrow(()->new ResourceNotFoundException("showtime not found"));
     }
 
 }
