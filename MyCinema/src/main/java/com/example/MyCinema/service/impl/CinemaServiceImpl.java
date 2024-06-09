@@ -62,7 +62,7 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public Cinema getCinemaById(long cinemaId) {
-        return cinemaRepository.findById(cinemaId).orElseThrow(()-> new ResourceNotFoundException("Cinema not found"));
+        return cinemaRepository.findById(cinemaId).orElseThrow(()-> new ResourceNotFoundException("Cinema " +cinemaId + " not found"));
     }
 
     @Override

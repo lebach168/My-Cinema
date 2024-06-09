@@ -114,6 +114,6 @@ public class MovieServiceImpl implements MovieService {
     }
 
     public Movie getMovieById(long movieId){
-        return movieRepository.findById(movieId).orElseThrow(()-> new ResourceNotFoundException("movie not found"));
+        return movieRepository.findById(movieId).orElseThrow(()-> new ResourceNotFoundException("movie + id:"+ movieId+" not found"));
     }
 }
