@@ -39,4 +39,9 @@ public class GlobalExceptionHandler {
         ApiErrorResponse apiErrorResponse = new ApiErrorResponse(HttpStatus.CONFLICT,ex.getMessage(), path);
         return apiErrorResponse;
     }
+    @ExceptionHandler(value = AuthenticationFailedException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiErrorResponse handleFailAuthenticateException(AuthenticationFailedException ex,WebRequest request){
+        return new ApiErrorResponse(HttpStatus.UNAUTHORIZED,ex.getMessage());
+    }
 }
