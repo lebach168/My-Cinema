@@ -9,6 +9,7 @@ import com.example.MyCinema.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
     @Override
     public UserDetailResponse getUserDetail(long userId) {
         User user = getUserById(userId);
@@ -36,8 +37,8 @@ public class UserServiceImpl implements UserService {
     public Long createNewAccount(UserRequestDTO userDTO) {
         if(userDTO.getPassword().isBlank()) throw new RuntimeException("Password must be not blank");
         Optional<User> userHasEmail = userRepository.findByEmail(userDTO.getEmail());
-        if(userHasEmail.isPresent()) throw new RuntimeException("Email has been used");
-        String hashedPassword = BCrypt.hashpw(userDTO.getPassword(),BCrypt.gensalt());
+        if(userHasEmail.isPresent()) throw new RuntimeException("Email already exists!");
+        String hashedPassword = passwordEncoder.encode(userDTO.getPassword());
         User newUser = User.builder()
                 .email(userDTO.getEmail())
                 .password(hashedPassword)
@@ -66,10 +67,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void changePassword(long userId, String newPassword) {
         User user = getUserById(userId);
-        if(BCrypt.checkpw(newPassword,user.getPassword())){
+        if(passwordEncoder.matches(newPassword,user.getPassword())){
             throw new RuntimeException("New password cannot be the same as your old password");
         }
-        user.setPassword(BCrypt.hashpw(newPassword,BCrypt.gensalt()));
+        user.setPassword(passwordEncoder.encode(newPassword));
         log.info("User id={} changed password successfully",userId);
     }
 

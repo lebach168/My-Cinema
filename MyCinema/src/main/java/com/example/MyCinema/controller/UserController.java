@@ -5,6 +5,7 @@ import com.example.MyCinema.dto.request.UserRequestDTO;
 import com.example.MyCinema.dto.response.UserDetailResponse;
 import com.example.MyCinema.service.UserService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UserController {
     private final UserService userService;
-    //create user <=> sign up
-    @PostMapping(path = "/register")
-    public ApiResponse<?> createNewUser(@Valid @RequestBody UserRequestDTO userDTO){
-        Long id = userService.createNewAccount(userDTO);
-        return new ApiResponse<>(HttpStatus.ACCEPTED,"register successfully",id);
-    }
+
     //get info
     @GetMapping(path = "/{userId}")
     public ApiResponse<?> getUserInfo(@PathVariable("userId") long userId){
@@ -46,7 +42,7 @@ public class UserController {
     //Change password
     @PatchMapping(path = "/change-password/{userId}")
     public ApiResponse<?> changeUserPassword(@PathVariable("userId") Long userId,
-            @NotBlank @RequestBody String newPassword){
+            @NotBlank @RequestBody @Min(1) String newPassword){
         log.info("request change user password id={}",userId);
         userService.changePassword(userId,newPassword);
         return new ApiResponse<>(HttpStatus.ACCEPTED,"user password has been changed");
