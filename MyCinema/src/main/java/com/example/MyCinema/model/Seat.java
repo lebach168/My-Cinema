@@ -32,4 +32,8 @@ public class Seat  extends BaseEntity{
     )
     private Room room;
 
+    public String toStringName(){
+        return  rowName+number;
+    }
+
 }

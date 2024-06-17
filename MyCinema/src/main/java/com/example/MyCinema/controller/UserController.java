@@ -33,7 +33,7 @@ public class UserController {
 
     //Update info
     @PutMapping(path = "/{userId}")
-    public ApiResponse<?> createNewUser(@PathVariable("userId") Long userId,
+    public ApiResponse<?> updateUser(@PathVariable("userId") Long userId,
             @Valid @RequestBody UserRequestDTO userDTO){
         log.info("request update user info id={}",userId);
         userService.updateUserInfo(userId , userDTO);
