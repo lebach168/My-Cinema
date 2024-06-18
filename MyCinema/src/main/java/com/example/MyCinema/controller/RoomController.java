@@ -32,7 +32,7 @@ public class RoomController {
         log.info("Request get room by id {}",roomId);
         return new ApiResponse<>(HttpStatus.OK,"rooms",responseData);
     }
-    @PostMapping(path = "/create")
+    @PostMapping(path = "")
     public ApiResponse<?> createRoomByCinemaId(@Valid @RequestBody RoomRequestDTO room){
         Long responseData = roomService.createRoom(room.getCinemaId(),room.getName());
         log.info("Request create 1 room name:{} for cinema:{}",room.getName(),room.getCinemaId());

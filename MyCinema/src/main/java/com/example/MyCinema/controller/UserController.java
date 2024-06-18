@@ -40,7 +40,7 @@ public class UserController {
         return new ApiResponse<>(HttpStatus.ACCEPTED,"user info successfully updated");
     }
     //Change password
-    @PatchMapping(path = "/change-password/{userId}")
+    @PatchMapping(path = "/password/{userId}")
     public ApiResponse<?> changeUserPassword(@PathVariable("userId") Long userId,
             @NotBlank @RequestBody @Min(1) String newPassword){
         log.info("request change user password id={}",userId);

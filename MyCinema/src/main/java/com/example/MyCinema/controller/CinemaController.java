@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @Slf4j
 public class CinemaController {
     private final CinemaService cinemaService;
-    @PostMapping(path = "/create")
+    @PostMapping(path = "")
     public ApiResponse<Long> addCinema(@Valid @RequestBody CinemaRequestDTO cinema){
         log.info("Request create cinema: name= {} address= {}",cinema.getName(),cinema.getAddress());
         Long cinemaId = cinemaService.addCinema(cinema);

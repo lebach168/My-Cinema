@@ -37,7 +37,7 @@ public class SeatController {
         return new ApiResponse<>(HttpStatus.OK,"seat", responseData);
     }
 
-    @PostMapping(path = "/create")
+    @PostMapping(path = "")
     public ApiResponse<?> createRowOfSeats(@Valid @RequestBody SeatRequestDTO rowSeat){
         log.info("request create row of seats for room : {}", rowSeat.getRoomId());
 
@@ -45,7 +45,7 @@ public class SeatController {
         return new ApiResponse<>(HttpStatus.OK,"Row of seats added successfully");
     }
 
-    @PutMapping(path = "/update")
+    @PutMapping(path = "")
     public ApiResponse<?> updateSeatType( @Valid @RequestBody SeatRequestDTO seat){
         log.info("request update type row of seats for room : {}", seat.getRoomId());
         try{
@@ -57,7 +57,7 @@ public class SeatController {
             throw new RuntimeException("Update seats failed");
         }
     }
-    @PatchMapping(path = "/update_row_name")
+    @PatchMapping(path = "/row_name")
     public ApiResponse<?> updateRowName( @RequestParam(value = "roomId",required = true) Long roomId,
                                          @RequestParam(value = "oldName",required = true) String oldName,
                                          @NotBlank @RequestParam(value = "newName",required = true) String newName){

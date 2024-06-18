@@ -30,7 +30,6 @@ public class SecurityConfig {
         httpSecurity
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(request -> request.requestMatchers(HttpMethod.GET,"/**").permitAll()
-
                     .anyRequest().authenticated());
 
         httpSecurity.oauth2ResourceServer(oauth2-> oauth2.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())));
