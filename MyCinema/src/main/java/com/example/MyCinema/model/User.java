@@ -15,8 +15,8 @@ import java.time.temporal.ChronoUnit;
 @Table(name="user")
 public class User extends  BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(name = "email")
     private String email;

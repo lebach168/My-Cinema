@@ -17,7 +17,7 @@ public class TicketRequestDTO {
     @NotNull (message = "showtime id is required")
     long showtimeId;
     @NotNull (message = "customerId is required")
-    long customerId;
+    String customerId;
     Discount discount;
     @NotNull (message = "price is required")
     long price;

@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
@@ -32,7 +33,7 @@ public class UserController {
     }
     //get info
     @GetMapping(path = "/{userId}")
-    public ApiResponse<?> getUserInfo(@PathVariable("userId") long userId){
+    public ApiResponse<?> getUserInfo(@PathVariable("userId") String userId){
         log.info("request get detail information of user id={}",userId);
         UserDetailResponse response = userService.getUserDetail(userId);
 
@@ -41,7 +42,7 @@ public class UserController {
 
     //Update info
     @PutMapping(path = "/{userId}")
-    public ApiResponse<?> updateUser(@PathVariable("userId") Long userId,
+    public ApiResponse<?> updateUser(@PathVariable("userId") String userId,
             @Valid @RequestBody UserRequestDTO userDTO){
         log.info("request update user info id={}",userId);
         userService.updateUserInfo(userId , userDTO);
@@ -49,7 +50,7 @@ public class UserController {
     }
     //Change password
     @PatchMapping(path = "/password/{userId}")
-    public ApiResponse<?> changeUserPassword(@PathVariable("userId") Long userId,
+    public ApiResponse<?> changeUserPassword(@PathVariable("userId") String userId,
                                              @NotBlank @RequestBody String currentPassword,
             @NotBlank @RequestBody @Min(1) String newPassword){
         log.info("request change user password id={}",userId);
@@ -60,7 +61,7 @@ public class UserController {
     }
     //Delete
     @DeleteMapping(path = "/{userId}")
-    public ApiResponse<?> deleteMovie(@PathVariable Long userId){
+    public ApiResponse<?> deleteMovie(@PathVariable String userId){
         log.info("request delete user id:{}",userId);
         userService.deleteUser(userId);
         return new ApiResponse<>(HttpStatus.ACCEPTED,"user "+userId +" successfully deleted ");

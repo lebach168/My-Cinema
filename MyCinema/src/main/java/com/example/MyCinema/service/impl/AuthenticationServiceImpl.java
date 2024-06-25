@@ -69,7 +69,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         JWTClaimsSet payload = new JWTClaimsSet.Builder()
                 .issuer("my-cinema")
                 .issueTime(new Date())
-                .subject(user.getEmail())
+                .subject(String.valueOf(user.getId()))
                 .expirationTime(new Date(Instant.now().plusSeconds(DURATION_TIME).toEpochMilli()))
                 .claim("scope","USER")
                 .build();
@@ -87,7 +87,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         JWTClaimsSet payload = new JWTClaimsSet.Builder()
                 .issuer("my-cinema")
                 .issueTime(new Date())
-                .subject(staff.getName())
+                .subject(String.valueOf(staff.getId()))
                 .expirationTime(new Date(Instant.now().plusSeconds(DURATION_TIME* 24L).toEpochMilli()))
                 .claim("scope",staff.getRole())
                 .build();

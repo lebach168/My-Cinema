@@ -1,9 +1,11 @@
 package com.example.MyCinema.service;
 
 import com.example.MyCinema.dto.request.StaffRequestDTO;
+import com.example.MyCinema.dto.response.StaffDetailResponse;
 
 public interface StaffService {
-    long createAccount(StaffRequestDTO request);
-    void updateStaffAccount(long staffId, StaffRequestDTO request);
-    void deleteStaffAccount(long staffId);
+    StaffDetailResponse getDetailAccount(String staffId);
+    String createAccount(StaffRequestDTO request);
+    void updateStaffAccount(String staffId, StaffRequestDTO request);
+    void deleteStaffAccount(String staffId);
 }

@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
 @Setter
 @Builder
 public class UserDetailResponse {
-    private Long id;
+    private String id;
     private String email;
     private String name;
     private LocalDate dob;

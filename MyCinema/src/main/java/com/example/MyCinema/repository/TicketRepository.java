@@ -11,5 +11,5 @@ import java.util.List;
 public interface TicketRepository extends JpaRepository<Ticket,Long> {
     @Query(nativeQuery = true,
     value = "SELECT * FROM Ticket t where t.customer_id =:userId")
-    List<Ticket> findAllByCustomer(long userId);
+    List<Ticket> findAllByCustomer(String userId);
 }
