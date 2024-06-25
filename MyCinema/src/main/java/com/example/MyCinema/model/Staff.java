@@ -9,8 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "employee")
-public class Employee extends BaseEntity{
+@Table(name = "staff")
+public class Staff extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -22,7 +22,7 @@ public class Employee extends BaseEntity{
     @Column(name = "password")
     private String password;
 
-//    @Column(name="role")
-//    private String role;
+    @Column(name="role")
+    private String role;
 
 }

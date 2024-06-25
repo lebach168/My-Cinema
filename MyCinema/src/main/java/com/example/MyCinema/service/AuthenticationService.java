@@ -1,8 +1,11 @@
 package com.example.MyCinema.service;
 
 import com.example.MyCinema.dto.request.AuthenticationRequest;
+import com.example.MyCinema.dto.response.AuthenticationResponse;
 
 public interface AuthenticationService {
+    AuthenticationResponse authenticate(AuthenticationRequest request);
+    boolean introspect(String token);
 
-    Object authenticate(AuthenticationRequest request);
+    AuthenticationResponse staffAuthenticate(AuthenticationRequest request);
 }

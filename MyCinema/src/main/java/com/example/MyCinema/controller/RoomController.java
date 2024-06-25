@@ -38,7 +38,8 @@ public class RoomController {
         log.info("Request create 1 room name:{} for cinema:{}",room.getName(),room.getCinemaId());
         return new ApiResponse<>(HttpStatus.ACCEPTED,"room successfully added",responseData);
     }
-    @PutMapping(path="")
+//    @PutMapping(path="")
+
     @DeleteMapping(path = "/{roomId}")
     public ApiResponse<?> deleteRoom(@PathVariable("roomId") Long roomId){
         log.info("Request delete room {}",roomId);

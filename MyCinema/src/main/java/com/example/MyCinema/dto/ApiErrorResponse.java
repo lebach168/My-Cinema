@@ -1,7 +1,9 @@
 package com.example.MyCinema.dto;
 
+import lombok.Builder;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationResponse;
 
 import java.time.LocalDateTime;
 
@@ -21,4 +23,6 @@ public class ApiErrorResponse extends ApiResponse{
         this.timestamp= LocalDateTime.now();
         this.path= path;
     }
+
+
 }

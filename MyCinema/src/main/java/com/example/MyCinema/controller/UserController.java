@@ -11,6 +11,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +23,13 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UserController {
     private final UserService userService;
-
+    @GetMapping
+    public ApiResponse<?> testToken(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("username : {}" , authentication.getName());
+        log.info("authorities: {} ", authentication.getAuthorities());
+        return new ApiResponse<>(HttpStatus.OK,"ok");
+    }
     //get info
     @GetMapping(path = "/{userId}")
     public ApiResponse<?> getUserInfo(@PathVariable("userId") long userId){
@@ -42,9 +50,12 @@ public class UserController {
     //Change password
     @PatchMapping(path = "/password/{userId}")
     public ApiResponse<?> changeUserPassword(@PathVariable("userId") Long userId,
+                                             @NotBlank @RequestBody String currentPassword,
             @NotBlank @RequestBody @Min(1) String newPassword){
         log.info("request change user password id={}",userId);
-        userService.changePassword(userId,newPassword);
+        if(!userService.changePassword(userId,currentPassword,newPassword)){
+            return new ApiResponse<>(HttpStatus.NOT_ACCEPTABLE,"check for the current password again");
+        }
         return new ApiResponse<>(HttpStatus.ACCEPTED,"user password has been changed");
     }
     //Delete

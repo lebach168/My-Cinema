@@ -7,6 +7,7 @@ import com.example.MyCinema.model.Seat;
 import com.example.MyCinema.service.SeatService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -57,10 +58,10 @@ public class SeatController {
             throw new RuntimeException("Update seats failed");
         }
     }
-    @PatchMapping(path = "/row_name")
-    public ApiResponse<?> updateRowName( @RequestParam(value = "roomId",required = true) Long roomId,
-                                         @RequestParam(value = "oldName",required = true) String oldName,
-                                         @NotBlank @RequestParam(value = "newName",required = true) String newName){
+    @PatchMapping(path = "/rows/{roomId}")
+    public ApiResponse<?> updateRowName( @PathVariable(value = "roomId",required = true) Long roomId,
+                                         @NotNull @RequestBody(required = true) String oldName,
+                                         @NotBlank @RequestBody(required = true) String newName){
         log.info("request update row name of seats for room : {}", roomId);
         try{
             seatService.updateRowName(roomId,oldName,newName);
