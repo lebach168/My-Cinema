@@ -40,7 +40,7 @@ public class ShowtimeController {
         return new ApiResponse<>(HttpStatus.OK,"success",response);
     }
     //create new showtime
-    @PostMapping(path = "/create")
+    @PostMapping(path = "")
     public ApiResponse<?> createShowtime(@Valid @RequestBody ShowtimeRequestDTO showtimeDTO){
         log.info("request create new showtime");
         long response = showtimeService.createShowtime(showtimeDTO);

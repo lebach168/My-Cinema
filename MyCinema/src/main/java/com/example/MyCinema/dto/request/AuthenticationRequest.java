@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public class AuthenticationRequest {
     @NotNull
-    String email;
+    String email;// or name, phone number
     @NotNull
     String password;
 }

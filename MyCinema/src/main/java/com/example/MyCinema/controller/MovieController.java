@@ -26,7 +26,7 @@ public class MovieController {
         MovieDetailResponse response = movieService.getMovieInfo(movieId);
         return new ApiResponse<>(HttpStatus.OK,"movie info",response);
     }
-    @PostMapping(path = "/add")
+    @PostMapping(path = "")
     public ApiResponse<?> addMovie(@Valid @RequestBody MovieRequestDTO movieDTO){
         log.info("request add new movie to show list");
         Long id = movieService.addMovie(movieDTO);

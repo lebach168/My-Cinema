@@ -8,7 +8,7 @@ public interface UserService {
     UserDetailResponse getUserDetail(long userId);
     Long createNewAccount(UserRequestDTO userDTO);
     void updateUserInfo(long userId ,UserRequestDTO userDTO);
-    void changePassword(long userId,String newPassword);
+    boolean changePassword(long userId,String currentPassword,String newPassword);
     void deleteUser(long userId);
     User getUserById(long userId);
 }

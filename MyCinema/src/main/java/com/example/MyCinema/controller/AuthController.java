@@ -26,7 +26,13 @@ public class AuthController {
     private final UserService userService;
     @PostMapping("/login")
     ApiResponse<?> authenticate(@RequestBody AuthenticationRequest request) {
-        Object result = authenticationService.authenticate(request);
+        AuthenticationResponse result = authenticationService.authenticate(request);
+        return new ApiResponse<>(HttpStatus.OK,"authenticated",result);
+    }
+
+    @PostMapping("/staff-login")
+    ApiResponse<?> staffAuthenticate(@RequestBody AuthenticationRequest request) {
+        AuthenticationResponse result = authenticationService.staffAuthenticate(request);
         return new ApiResponse<>(HttpStatus.OK,"authenticated",result);
     }
 

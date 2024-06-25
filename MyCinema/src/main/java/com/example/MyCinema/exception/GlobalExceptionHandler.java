@@ -2,12 +2,14 @@ package com.example.MyCinema.exception;
 
 import com.example.MyCinema.dto.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Objects;
 
 @RestControllerAdvice
@@ -40,8 +42,16 @@ public class GlobalExceptionHandler {
         return apiErrorResponse;
     }
     @ExceptionHandler(value = AuthenticationFailedException.class)
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public ApiErrorResponse handleFailAuthenticateException(AuthenticationFailedException ex,WebRequest request){
+    public ApiErrorResponse handleAuthenticationFailedException(AccessDeniedException ex,WebRequest request){
+        return new ApiErrorResponse(HttpStatus.UNAUTHORIZED,ex.getMessage(),request.getDescription(false));
+    }
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public ApiErrorResponse handleAccessDeniedException(AccessDeniedException ex,WebRequest request){
+        return new ApiErrorResponse(HttpStatus.FORBIDDEN,ex.getMessage(),request.getDescription(false));
+    }
+
+    @ExceptionHandler({ AuthenticationException.class })
+    public ApiErrorResponse handleAuthenticationException(Exception ex) {
         return new ApiErrorResponse(HttpStatus.UNAUTHORIZED,ex.getMessage());
     }
 }

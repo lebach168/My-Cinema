@@ -65,13 +65,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(long userId, String newPassword) {
+    public boolean changePassword(long userId, String currentPassword,String newPassword) {
         User user = getUserById(userId);
-        if(passwordEncoder.matches(newPassword,user.getPassword())){
+        if(newPassword.equals(currentPassword)){
             throw new RuntimeException("New password cannot be the same as your old password");
+        }
+        if(!passwordEncoder.matches(currentPassword,user.getPassword())){
+            return false;
         }
         user.setPassword(passwordEncoder.encode(newPassword));
         log.info("User id={} changed password successfully",userId);
+        return true;
     }
 
     @Override
