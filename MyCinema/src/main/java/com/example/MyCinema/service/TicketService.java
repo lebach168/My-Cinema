@@ -7,7 +7,7 @@ import com.example.MyCinema.model.Ticket;
 import java.util.List;
 
 public interface TicketService {
-    List<TicketDetailResponse> getAllTicketByUser(long userId);
+    List<TicketDetailResponse> getAllTicketByUser(String userId);
 
     TicketDetailResponse getTicketDetail(long ticketId);
 

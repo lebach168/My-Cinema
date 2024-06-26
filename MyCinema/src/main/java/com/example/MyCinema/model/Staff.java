@@ -12,9 +12,9 @@ import lombok.*;
 @Table(name = "staff")
 public class Staff extends BaseEntity{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name="id")
-    private Long id;
+    private String id;
 
     @Column(name = "name")
     private String name;

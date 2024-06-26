@@ -11,6 +11,8 @@ import com.example.MyCinema.service.TicketService;
 import com.example.MyCinema.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -29,6 +31,7 @@ public class TicketServiceImpl implements TicketService {
     public TicketDetailResponse toTicketDetail(Ticket ticket){
         return TicketDetailResponse.builder()
                 .id(ticket.getId())
+                .customer(ticket.getCustomer())
                 .seatName(ticket.getSeat().toStringName())
                 .showtime(ticket.getShowtime())
                 .price(ticket.getPrice())
@@ -36,7 +39,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketDetailResponse> getAllTicketByUser(long userId) {
+    @PreAuthorize("#userId==authentication.name")
+    public List<TicketDetailResponse> getAllTicketByUser(String userId) {
         List<Ticket> tickets = ticketRepository.findAllByCustomer(userId);
         tickets.sort(Comparator.comparing(BaseEntity::getCreatedAt));
         return tickets.stream().map(this::toTicketDetail).toList();
