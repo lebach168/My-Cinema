@@ -8,6 +8,8 @@ import com.example.MyCinema.repository.UserRepository;
 import com.example.MyCinema.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     @Override
-    public UserDetailResponse getUserDetail(long userId) {
+    @PreAuthorize("#userId==authentication.name || hasRole('ADMIN')")
+    public UserDetailResponse getUserDetail(String userId) {
         User user = getUserById(userId);
         return UserDetailResponse.builder()
                 .id(user.getId())
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Long createNewAccount(UserRequestDTO userDTO) {
+    public String createNewAccount(UserRequestDTO userDTO) {
         if(userDTO.getPassword().isBlank()) throw new RuntimeException("Password must be not blank");
         Optional<User> userHasEmail = userRepository.findByEmail(userDTO.getEmail());
         if(userHasEmail.isPresent()) throw new RuntimeException("Email already exists!");
@@ -47,14 +50,14 @@ public class UserServiceImpl implements UserService {
                 .point(userDTO.getPoint())
                 .level(userDTO.getLevel())
                 .build();
-        Long userId = userRepository.save(newUser).getId();
+        String userId = userRepository.save(newUser).getId();
         log.info("user id={} has saved",userId);
         return userId;
     }
 
 
     @Override
-    public void updateUserInfo(long userId, UserRequestDTO userDTO) {
+    public void updateUserInfo(String userId, UserRequestDTO userDTO) {
         User user = getUserById(userId);
         user.setDob(userDTO.getDob());
         user.setName(userDTO.getName());
@@ -65,7 +68,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean changePassword(long userId, String currentPassword,String newPassword) {
+    public boolean changePassword(String userId, String currentPassword,String newPassword) {
         User user = getUserById(userId);
         if(newPassword.equals(currentPassword)){
             throw new RuntimeException("New password cannot be the same as your old password");
@@ -79,12 +82,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(long userId) {
+    public void deleteUser(String userId) {
         userRepository.deleteById(userId);
         log.info("User id={} has been deleted ",userId);
     }
 
-    public User getUserById(long userId){
+    public User getUserById(String userId){
         return userRepository.findById(userId).orElseThrow(()-> new ResourceNotFoundException("User not found"));
     }
 

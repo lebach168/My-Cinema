@@ -1,6 +1,7 @@
 package com.example.MyCinema.dto.response;
 
 import com.example.MyCinema.model.Showtime;
+import com.example.MyCinema.model.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,5 +13,5 @@ public class TicketDetailResponse {
     String seatName;
     Showtime showtime;
     long price;
-
+    User customer;
 }

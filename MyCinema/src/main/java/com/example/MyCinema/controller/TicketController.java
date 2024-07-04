@@ -4,11 +4,14 @@ import com.example.MyCinema.dto.ApiResponse;
 import com.example.MyCinema.dto.request.TicketRequestDTO;
 import com.example.MyCinema.dto.response.TicketDetailResponse;
 import com.example.MyCinema.dto.response.UserDetailResponse;
+import com.example.MyCinema.model.User;
 import com.example.MyCinema.service.TicketService;
+import com.example.MyCinema.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +24,10 @@ import java.util.List;
 @Validated
 public class TicketController {
     private final TicketService ticketService;
-
     //get all tickets by user, sort by date,
+
     @GetMapping(path = "/{userId}")
-    ApiResponse<?> getAllTicketsByUser(@PathVariable Long userId){
+    ApiResponse<?> getAllTicketsByUser(@PathVariable String userId){
         log.info("request get all tickets of user id={}",userId);
         List<TicketDetailResponse> response = ticketService.getAllTicketByUser(userId);
         return new ApiResponse<>(HttpStatus.OK,"ok",response);

@@ -39,7 +39,7 @@ public class AuthController {
     //create user <=> sign up
     @PostMapping(path = "/register")
     public ApiResponse<?> createNewUser(@Valid @RequestBody UserRequestDTO userDTO){
-        Long id = userService.createNewAccount(userDTO);
+        String id = userService.createNewAccount(userDTO);
         return new ApiResponse<>(HttpStatus.ACCEPTED,"register successfully",id);
     }
 }
