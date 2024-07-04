@@ -2,7 +2,7 @@ package com.example.MyCinema.controller;
 
 import com.example.MyCinema.dto.ApiResponse;
 import com.example.MyCinema.dto.request.RoomRequestDTO;
-import com.example.MyCinema.dto.response.RoomResponse;
+import com.example.MyCinema.dto.response.CinemaResponse;
 import com.example.MyCinema.model.Room;
 import com.example.MyCinema.service.RoomService;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ public class RoomController {
 
     @GetMapping(path = "/list/{cinemaId}")
     public ApiResponse<?> getAllRoomsByCinema(@PathVariable("cinemaId") Long cinemaId){
-        RoomResponse responseData = roomService.getAllRoomsByCinema(cinemaId);
+        CinemaResponse responseData = roomService.getAllRoomsByCinema(cinemaId);
         log.info("Request get all rooms of cinema {}",cinemaId);
         return new ApiResponse<>(HttpStatus.OK,"rooms",responseData);
     }

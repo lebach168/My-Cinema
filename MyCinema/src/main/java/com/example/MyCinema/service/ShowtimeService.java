@@ -1,7 +1,7 @@
 package com.example.MyCinema.service;
 
 import com.example.MyCinema.dto.request.ShowtimeRequestDTO;
-import com.example.MyCinema.dto.response.ShowtimeScheduleResponse;
+import com.example.MyCinema.dto.response.ShowtimeResponse;
 import com.example.MyCinema.model.Showtime;
 
 import java.time.LocalDate;
@@ -12,6 +12,6 @@ public interface ShowtimeService {
     void updateShowtime(long showtimeId, ShowtimeRequestDTO showtimeDTO);
     void deleteShowtime(long showtimeId);
     Showtime getShowtimeById(long showtimeId);
-    List<ShowtimeScheduleResponse> getScheduleShowtimeByCinema(long cinemaId, LocalDate selectedDate);
-    List<ShowtimeScheduleResponse> getScheduleShowtimeByMovie(long movieId);
+    List<?> getScheduleShowtimeByCinema(long cinemaId, LocalDate selectedDate);
+    List<?> getScheduleShowtimeByMovie(long movieId);
 }

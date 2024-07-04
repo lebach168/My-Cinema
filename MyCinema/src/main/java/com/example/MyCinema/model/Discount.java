@@ -13,7 +13,7 @@ import lombok.*;
 public class Discount extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "event")
     private String event;

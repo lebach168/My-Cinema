@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Showtime extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "start_time")
     private LocalDateTime startTime;

@@ -1,0 +1,32 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+spring:
+  config:
+    import: env.properties
+  datasource:
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    url: ${DB_DATABASE}
+  jpa:
+    properties:
+      show-sql: false
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+jwt:
+  signerKey: ${SECRET_KEY_SIGNER}
+  validDuration: ${VALID_DURATION}

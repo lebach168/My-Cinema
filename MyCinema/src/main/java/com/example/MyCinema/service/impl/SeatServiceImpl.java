@@ -1,7 +1,7 @@
 package com.example.MyCinema.service.impl;
 
 import com.example.MyCinema.dto.request.SeatRequestDTO;
-import com.example.MyCinema.dto.response.SeatResponse;
+import com.example.MyCinema.dto.response.RoomResponse;
 import com.example.MyCinema.exception.DataAlreadyExistsException;
 import com.example.MyCinema.exception.ResourceNotFoundException;
 import com.example.MyCinema.model.Room;
@@ -92,14 +92,14 @@ public class SeatServiceImpl implements SeatService {
         return seats;
     }
     @Override
-    public SeatResponse getAllSeatByRoom(long roomId) {
+    public RoomResponse getAllSeatByRoom(long roomId) {
         List<Seat> seatList= seatRepository.findAllByRoomId(roomId);
         Room room = roomService.getRoomById(roomId);
         List<Seat> response = seatList.stream().map(seat-> Seat.builder()
                 .id(seat.getId())
                 .rowName(seat.getRowName())
                 .build()).toList();
-        return SeatResponse.builder()
+        return RoomResponse.builder()
                 .room(room)
                 .seats(response)
                 .build();

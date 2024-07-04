@@ -17,4 +17,9 @@ public interface SeatRepository extends JpaRepository<Seat,Long> {
     @Query(nativeQuery = true,
     value = "select * from Seat s where s.room_id=:roomId")
     List<Seat> findAllByRoomId(@Param("roomId") long roomId);
+
+    @Query(nativeQuery = true,
+    value = "select * from Seat s inner join Showtime show on s.room_id = show.room_id " +
+            "where show.id =:showtimeId")
+    List<Seat> findAllByShowtimeId(@Param("showtimeId") long showtimeId);
 }

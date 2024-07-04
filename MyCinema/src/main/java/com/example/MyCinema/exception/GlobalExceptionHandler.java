@@ -54,4 +54,12 @@ public class GlobalExceptionHandler {
     public ApiErrorResponse handleAuthenticationException(Exception ex) {
         return new ApiErrorResponse(HttpStatus.UNAUTHORIZED,ex.getMessage());
     }
+    @ExceptionHandler({RateLimitExceededException.class})
+    public  ApiErrorResponse handleRateLimitExceededError(Exception ex){
+        return new ApiErrorResponse(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
+    }
+    @ExceptionHandler({SeatAlreadyReservedException.class})
+    public ApiErrorResponse handleSeatReserveConflictError(Exception ex){
+        return new ApiErrorResponse(HttpStatus.CONFLICT, ex.getMessage());
+    }
 }

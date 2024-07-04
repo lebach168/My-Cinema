@@ -2,7 +2,6 @@ package com.example.MyCinema.controller;
 
 import com.example.MyCinema.dto.ApiResponse;
 import com.example.MyCinema.dto.request.ShowtimeRequestDTO;
-import com.example.MyCinema.dto.response.ShowtimeScheduleResponse;
 import com.example.MyCinema.service.ShowtimeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class ShowtimeController {
     @Autowired
     private final ShowtimeService showtimeService;
 
-    //get showtime by cinema, by movie ->order by time, find by day,
+    //get showtime by cinema ->order by time, find by day,
     @GetMapping(path = "/schedule/{cinemaId}")
     public ApiResponse<?> getScheduleByCinema(@PathVariable(name = "cinemaId") long cinemaId,
                                               @RequestBody(required = false) LocalDate selectedDate ){
@@ -32,6 +31,7 @@ public class ShowtimeController {
         List<?> response = showtimeService.getScheduleShowtimeByCinema(cinemaId,selectedDate);
         return new ApiResponse<>(HttpStatus.OK,"success",response);
     }
+    //get showtime by movie
     @GetMapping(path = "/{movieId}")
     public ApiResponse<?> getScheduleByMovie(@PathVariable(name = "movieId") long movieId,
                                               @RequestBody(required = false) LocalDate selectedDate ){
@@ -49,7 +49,7 @@ public class ShowtimeController {
     //update showtime
     @PutMapping(path = "/{showtimeId}")
     public ApiResponse<?> updateShowtime(@PathVariable("showtimeId") long showtimeId,
-            @Valid @RequestBody ShowtimeRequestDTO showtimeDTO){
+                                         @Valid @RequestBody ShowtimeRequestDTO showtimeDTO){
         log.info("request update showtime id={}",showtimeId);
         showtimeService.updateShowtime(showtimeId,showtimeDTO);
         return new ApiResponse<>(HttpStatus.ACCEPTED,"updated");

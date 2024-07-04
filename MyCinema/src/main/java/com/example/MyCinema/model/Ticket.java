@@ -13,7 +13,7 @@ import lombok.*;
 public class Ticket extends  BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @OneToOne
     @JoinColumn(name = "seat_id")
     private Seat seat;
