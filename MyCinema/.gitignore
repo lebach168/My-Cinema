@@ -35,4 +35,5 @@ build/
 *.env.example
 *.env.local
 env.properties
+env.prod.properties
 **/env.properties
