@@ -1,0 +1,22 @@
+server:
+  port: 8888
+  error:
+    include-message: always
+spring:
+  config:
+    import: env.prod.properties
+  datasource:
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    url: ${DB_DATABASE}
+  jpa:
+    properties:
+      show-sql: true
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+
+jwt:
+  signerKey: ${SECRET_KEY_SIGNER}
+  validDuration: ${VALID_DURATION}
