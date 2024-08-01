@@ -1,18 +1,17 @@
 package com.example.MyCinema.dto.response;
 
-import com.example.MyCinema.model.Room;
-import com.example.MyCinema.model.Seat;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
-@Builder
 @Getter
 @Setter
-public class RoomResponse {
-    Room room;
-    List<Seat> seats;
+@Builder
 
+public class ShowtimeDetailResponse {
+    
+    Set<SeatResponse> seats;
 }

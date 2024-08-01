@@ -13,14 +13,14 @@ import java.time.LocalDateTime;
 @Getter
 public class ShowtimeRequestDTO implements Serializable {
 
-    @NotNull(message = "date of birth must be not null")
+    @NotNull(message = "start time must be not null")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME,pattern="yyyy-MM-dd HH:mm")
     @JsonFormat( pattern="yyyy-MM-dd HH:mm")
     LocalDateTime startTime;
-    @NotNull
+    @NotBlank
     Long cinemaId;
-    @NotNull
+    @NotBlank
     Long roomId;
-    @NotNull
+    @NotBlank
     Long movieId;
 }

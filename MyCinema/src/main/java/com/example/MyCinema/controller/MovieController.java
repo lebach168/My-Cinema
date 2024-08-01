@@ -21,6 +21,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping(path = "/{movieId}")
+    // (search  = "genres? " / ?language / date release order) --> Paging
     public ApiResponse<?> getMovieInfo(@PathVariable Long movieId ){
         log.info("request get data info movie id:{}",movieId);
         MovieDetailResponse response = movieService.getMovieInfo(movieId);
@@ -63,5 +64,5 @@ public class MovieController {
         PaginationResponse<?> response = movieService.getUpcomingMovie(pageNo, pageSize,sortBy);
         return new ApiResponse<>(HttpStatus.OK,"upcoming movie",response);
     }
-//    @GetMapping(path = "genres? ") --> Paging
+
 }

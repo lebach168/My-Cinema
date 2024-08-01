@@ -1,5 +1,7 @@
 package com.example.MyCinema.model;
 
+import com.example.MyCinema.dto.response.SeatResponse;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,10 +12,11 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 @Table(name ="seat")
-public class Seat  extends BaseEntity{
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class Seat extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "row_name")
     private String rowName;
@@ -25,7 +28,7 @@ public class Seat  extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private SeatType type;//standard, vip, sweetbox, deluxe
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(
             name = "room_id",
             nullable = false
@@ -35,5 +38,4 @@ public class Seat  extends BaseEntity{
     public String toStringName(){
         return  rowName+number;
     }
-
 }

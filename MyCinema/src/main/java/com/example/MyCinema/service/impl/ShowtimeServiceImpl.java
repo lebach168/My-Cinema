@@ -1,7 +1,7 @@
 package com.example.MyCinema.service.impl;
 
 import com.example.MyCinema.dto.request.ShowtimeRequestDTO;
-import com.example.MyCinema.dto.response.ShowtimeScheduleResponse;
+import com.example.MyCinema.dto.response.ShowtimeResponse;
 import com.example.MyCinema.exception.ResourceNotFoundException;
 import com.example.MyCinema.model.Cinema;
 import com.example.MyCinema.model.Movie;
@@ -14,7 +14,6 @@ import com.example.MyCinema.service.RoomService;
 import com.example.MyCinema.service.ShowtimeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -87,10 +86,10 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     }
 
 
-    public List<ShowtimeScheduleResponse> convertToResponseType(List<Showtime> showtimes){
+    public List<ShowtimeResponse> convertToResponseType(List<Showtime> showtimes){
         return showtimes.stream()
-                .map(showtime ->ShowtimeScheduleResponse.builder()
-                        .id(showtime.getId())
+                .map(showtime -> ShowtimeResponse.builder()
+                        .showtimeId(showtime.getId())
                         .cinema(showtime.getCinema())
                         .room(showtime.getRoom())
                         .movie(showtime.getMovie())
@@ -100,7 +99,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     }
 
     @Override
-    public List<ShowtimeScheduleResponse> getScheduleShowtimeByCinema(long cinemaId, LocalDate selectedDate) {
+    public List<ShowtimeResponse> getScheduleShowtimeByCinema(long cinemaId, LocalDate selectedDate) {
         if(selectedDate == null) {
             selectedDate = LocalDate.now();
         }
@@ -109,7 +108,7 @@ public class ShowtimeServiceImpl implements ShowtimeService {
     }
 
     @Override
-    public List<ShowtimeScheduleResponse> getScheduleShowtimeByMovie(long movieId ) {
+    public List<ShowtimeResponse> getScheduleShowtimeByMovie(long movieId ) {
 
         List<Showtime> showtimes = showtimeRepository.findAllByMovieOrderByStartTime(movieId);
         return convertToResponseType(showtimes);

@@ -1,6 +1,6 @@
 package com.example.MyCinema.service;
 
-import com.example.MyCinema.dto.response.RoomResponse;
+import com.example.MyCinema.dto.response.CinemaResponse;
 import com.example.MyCinema.model.Room;
 
 public interface RoomService {
@@ -9,5 +9,5 @@ public interface RoomService {
     void deleteRoom(long roomId);
 
     Room getRoomById(long roomId);
-    RoomResponse getAllRoomsByCinema(Long cinemaId);
+    CinemaResponse getAllRoomsByCinema(Long cinemaId);
 }

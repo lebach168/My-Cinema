@@ -14,7 +14,7 @@ import java.util.Set;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
     @Query(value = "Select * from Room r where r.cinema_id =:cinemaId" ,nativeQuery = true)
-    List<Room> findAllByCinemaId(@Param("cinemaId")Long cinemaId);
+    List<Room> findAllByCinemaId(@Param("cinemaId")long cinemaId);
 
     List<Room> findAllByCinemaAndName(Cinema cinema, String name);
 

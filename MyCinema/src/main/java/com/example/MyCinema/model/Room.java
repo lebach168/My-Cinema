@@ -17,11 +17,11 @@ import java.util.Set;
 public class Room extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(name = "name")
     private String name;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_id")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Cinema cinema;

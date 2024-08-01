@@ -19,6 +19,12 @@ spring:
   config:
     import: env.properties
 
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+      hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 jwt:
   signerKey: ${SECRET_KEY_SIGNER}

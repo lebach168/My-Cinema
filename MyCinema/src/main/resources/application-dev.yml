@@ -16,6 +16,16 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
 
 jwt:
   signerKey: ${SECRET_KEY_SIGNER}

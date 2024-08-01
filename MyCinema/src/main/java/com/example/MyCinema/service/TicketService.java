@@ -7,14 +7,14 @@ import com.example.MyCinema.model.Ticket;
 import java.util.List;
 
 public interface TicketService {
-    List<TicketDetailResponse> getAllTicketByUser(String userId);
-
-    TicketDetailResponse getTicketDetail(long ticketId);
-
-    Long createTicket(TicketRequestDTO ticketRequest);
-
-    void updateTicket(long ticketId, TicketRequestDTO ticketRequest);
-
-    void deleteTicket(long ticketId);
+//    List<TicketDetailResponse> getAllTicketByUser(String userId);
+//
+//    TicketDetailResponse getTicketDetail(long ticketId);
+//
+//    Long createTicket(TicketRequestDTO ticketRequest);
+//
+//    void updateTicket(long ticketId, TicketRequestDTO ticketRequest);
+//
+//    void deleteTicket(long ticketId);
 
 }

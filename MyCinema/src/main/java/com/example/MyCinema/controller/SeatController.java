@@ -2,7 +2,7 @@ package com.example.MyCinema.controller;
 
 import com.example.MyCinema.dto.ApiResponse;
 import com.example.MyCinema.dto.request.SeatRequestDTO;
-import com.example.MyCinema.dto.response.SeatResponse;
+import com.example.MyCinema.dto.response.RoomResponse;
 import com.example.MyCinema.model.Seat;
 import com.example.MyCinema.service.SeatService;
 import jakarta.validation.Valid;
@@ -13,8 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "api/v1/seats")
@@ -27,7 +25,7 @@ public class SeatController {
     @GetMapping(path = "/list/{roomId}")
     public ApiResponse<?> getAllSeatsByRoomId(@PathVariable("roomId") long roomId){
         log.info("request get all seats by room: {}",roomId);
-        SeatResponse responseData = seatService.getAllSeatByRoom(roomId);
+        RoomResponse responseData = seatService.getAllSeatByRoom(roomId);
         return new ApiResponse<>(HttpStatus.OK,"list of seats", responseData);
     }
 
